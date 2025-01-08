@@ -1,16 +1,33 @@
 import React, { useState } from 'react';
-import { useWorkflowStore } from '../../store/workflowStore';
+import { useWorkflowStore } from '../../store/DashboardStore';
 import { useWorkflowAnalytics } from '../../hooks/useWorkflowAnalytics';
 import { BarChart } from './BarChart';
 import { PieChart } from './PieChart';
 import { LineChart } from './LineChart';
 import { ArrowDownFromLine, ArrowUpFromLine } from 'lucide-react';
 
+/**
+ * AnalyticsPanel component is a fixed panel at the bottom of the screen that displays various analytics
+ * about the workflow. It shows execution time, time distribution, and cumulative execution time charts.
+ * The panel can be collapsed and expanded for a more compact or detailed view.
+ * 
+ * @returns {JSX.Element} The rendered AnalyticsPanel component.
+ */
 export const AnalyticsPanel: React.FC = () => {
+    // Access the workflow data (nodes and edges) and the highlighted node setter
   const { nodes, edges, setHighlightedNode } = useWorkflowStore();
+    // Get the analytics data based on the nodes and edges in the workflow
   const { executionTimeData, pieChartData, cumulativeData } = useWorkflowAnalytics(nodes, edges);
+    // State to manage whether the panel is collapsed or expanded
   const [isCollapsed, setIsCollapsed] = useState(false);
 
+
+   /**
+   * Handle the hover event on a bar in the BarChart.
+   * It highlights the corresponding node when a bar is hovered.
+   * 
+   * @param {string | null} nodeId - The ID of the node to highlight or null if no node is hovered.
+   */
   const handleBarHover = (nodeId: string | null) => {
     setHighlightedNode(nodeId);
   };
@@ -31,7 +48,7 @@ export const AnalyticsPanel: React.FC = () => {
          </button>
 
       </div>
-      
+        {/* Panel content that appears when the panel is expanded */}
       {!isCollapsed && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 h-[calc(40vh-3rem)] md:h-64 overflow-auto">
           <div className="bg-[#FFFAEC] p-4 rounded">

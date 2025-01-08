@@ -8,8 +8,16 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import { useWorkflowStore } from '../../store/workflowStore';
+import { useWorkflowStore } from '../../store/DashboardStore';
 
+
+/**
+ * Props for the BarChart component.
+ * 
+ * @typedef {Object} Props
+ * @property {Array<{id: string, name: string, executionTime: number}>} data - The data to be displayed in the bar chart.
+ * @property {(nodeId: string | null) => void} [onBarHover] - Optional callback function to handle hovering over bars. 
+ */
 interface Props {
   data: Array<{
     id: string;
@@ -19,6 +27,16 @@ interface Props {
   onBarHover?: (nodeId: string | null) => void;
 }
 
+/**
+ * BarChart component displays a bar chart visualizing the execution time of nodes in the workflow.
+ * The chart shows the execution time for each node and provides a hover effect to highlight the node.
+ * 
+ * @param {Props} props - The props for the BarChart component.
+ * @param {Array<{id: string, name: string, executionTime: number}>} props.data - The chart data with node IDs, names, and execution times.
+ * @param {(nodeId: string | null) => void} [props.onBarHover] - Optional callback function invoked when a bar is hovered.
+ * 
+ * @returns {JSX.Element} The rendered BarChart component.
+ */
 export const BarChart: React.FC<Props> = ({ data, onBarHover }) => {
   return (
     <ResponsiveContainer width="100%" height={200}>

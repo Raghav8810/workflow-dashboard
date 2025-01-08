@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useWorkflowStore } from '../store/workflowStore';
+import { useWorkflowStore } from '../store/DashboardStore';
 
 const STORAGE_KEY = 'workflow-state';
 

@@ -4,11 +4,11 @@ import ReactFlow, {
   Controls,
   MiniMap,
   NodeTypes,
-  EdgeTypes,
+  // EdgeTypes,
   NodeMouseHandler,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
-import { useWorkflowStore } from '../store/workflowStore';
+import { useWorkflowStore } from '../store/DashboardStore';
 import { CustomNode } from './CustomNode';
 import { useWorkflowValidation } from '../hooks/useWorkflowValidation';
 
@@ -19,7 +19,7 @@ const nodeTypes: NodeTypes = {
   end: CustomNode,
 };
 
-export const Canvas: React.FC = () => {
+export const CanvasBoard: React.FC = () => {
   const { 
     nodes, 
     edges, 
@@ -58,11 +58,12 @@ export const Canvas: React.FC = () => {
     },
     [addNode]
   );
+  
 
   return (
     <div className="flex-1 h-full">
       {!isValid && (
-        <div className={`absolute top-4 right-4 z-10 ${errors.disconnectedNodes.length > 0 ? "bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded" : ""} `}>
+        <div className={`absolute top-4 right-4 z-10 ${errors.disconnectedNodes.length > 0 || errors.multipleStartNodes? "bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded" : ""} `}>
           {errors.multipleStartNodes && (
             <p>Error: Multiple start nodes detected</p>
           )}

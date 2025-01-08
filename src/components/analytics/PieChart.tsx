@@ -7,8 +7,17 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
+// Define a set of colors for pie chart segments
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
+/**
+ * Props for the PieChart component.
+ * 
+ * @typedef {Object} Props
+ * @property {Array<{type: string, value: number}>} data - The data to be displayed in the pie chart. Each data point contains:
+ *   - `type`: The type or category of the data (e.g., task type or decision type).
+ *   - `value`: The numerical value associated with the type (e.g., execution time).
+ */
 interface Props {
   data: Array<{
     type: string;
@@ -16,6 +25,15 @@ interface Props {
   }>;
 }
 
+/**
+ * PieChart component displays a pie chart visualizing the distribution of values across different types.
+ * The chart segments represent different categories, with the size of each segment based on the associated value.
+ * 
+ * @param {Props} props - The props for the PieChart component.
+ * @param {Array<{type: string, value: number}>} props.data - The chart data, where each entry represents a type and its corresponding value.
+ * 
+ * @returns {JSX.Element} The rendered PieChart component.
+ */
 export const PieChart: React.FC<Props> = ({ data }) => {
   return (
     <ResponsiveContainer width="100%" height={200}>
